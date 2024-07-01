@@ -9,7 +9,7 @@ class Scrolling extends StatelessWidget {
       scrollDirection: Axis.horizontal,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 1,
-        crossAxisSpacing: 0,
+        crossAxisSpacing: 1,
       ),
       itemCount: 6,
       itemBuilder: (context, index) {

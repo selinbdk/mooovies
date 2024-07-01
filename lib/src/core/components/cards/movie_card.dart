@@ -69,17 +69,17 @@ class MyWidget extends StatelessWidget {
               child: const Row(
                 children: [
                   Padding(
-                    padding: EdgeInsets.only(left: 40),
+                    padding: EdgeInsets.only(left: 10),
                     child: Text(
                         style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
                           fontSize: 20,
                         ),
-                        'Movies'),
+                        'POPULAR MOVIES'),
                   ),
                   SizedBox(width: 100),
-                  Padding(
+                  /*Padding(
                     padding: EdgeInsets.only(left: 70),
                     child: Text(
                         style: TextStyle(
@@ -88,7 +88,7 @@ class MyWidget extends StatelessWidget {
                           fontSize: 20,
                         ),
                         'Person'),
-                  )
+                  )*/
                 ],
               ),
             ),
