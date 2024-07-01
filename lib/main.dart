@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mooovies/src/views/home_view.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,6 +16,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
+      home: HomeView(),
     );
   }
 }
