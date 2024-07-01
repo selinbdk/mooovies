@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mooovies/src/views/_widgets/home_search_field.dart';
+import 'package:mooovies/src/views/grid_scrolling.dart';
 
 /**
  * Burada bir StatelessWidget olacak.
@@ -91,12 +92,15 @@ class MyWidget extends StatelessWidget {
                 ],
               ),
             ),
-            const Card(),
-            const Image(
-              image: AssetImage('design/harry-potter.webp'),
-              // image: NetworkImage(
-              //     'https://m.media-amazon.com/images/I/81q77Q39nEL._AC_UF1000,1000_QL80_.jpg'),
-            ),
+
+            Expanded(child: Scrolling()),
+            Expanded(child: Scrolling()),
+
+            //const Image(
+            //image: AssetImage('design/harry-potter.webp'),
+            // image: NetworkImage(
+            //     'https://m.media-amazon.com/images/I/81q77Q39nEL._AC_UF1000,1000_QL80_.jpg'),
+            //),
           ],
         ));
   }
