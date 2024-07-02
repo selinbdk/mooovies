@@ -23,29 +23,5 @@ class HomeTextField extends StatelessWidget {
   }
 }
 
-class Gridview extends StatelessWidget {
-  const Gridview({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return GridView.count(
-      scrollDirection: Axis.horizontal,
-      crossAxisCount: 3,
-      crossAxisSpacing: 4,
-      children: [
-        Image(
-          image: AssetImage('design/harry-potter.webp'),
-        ),
-        Image(
-          image: AssetImage('design/harry-potter.webp'),
 
 
-      
-
-        )
-
-        
-      ],
-    );
-  }
-}

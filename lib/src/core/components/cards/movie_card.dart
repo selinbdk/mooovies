@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mooovies/src/core/theme/app_colors.dart';
 import 'package:mooovies/src/views/_widgets/home_search_field.dart';
 import 'package:mooovies/src/views/grid_scrolling.dart';
 
@@ -21,7 +22,7 @@ class MyWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.black54,
+        backgroundColor: AppColors.backColor,
         appBar: AppBar(
             backgroundColor: const Color.fromARGB(189, 0, 0, 0),
             title: const Row(
@@ -78,7 +79,7 @@ class MyWidget extends StatelessWidget {
                         ),
                         'POPULAR MOVIES'),
                   ),
-                  SizedBox(width: 100),
+                  //SizedBox(width: 100),
                   /*Padding(
                     padding: EdgeInsets.only(left: 70),
                     child: Text(
@@ -94,6 +95,27 @@ class MyWidget extends StatelessWidget {
             ),
 
             Expanded(child: Scrolling()),
+
+            Row(
+              children: [
+                Container(
+                  width: 392.5,
+                  height: 40,
+                  color: AppColors.secondaryColor,
+                  padding: EdgeInsets.only(left: 10),
+                  child: Text(
+                    
+                    "NOW PLAYING",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+
             Expanded(child: Scrolling()),
 
             //const Image(
