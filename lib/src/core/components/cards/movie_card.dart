@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mooovies/src/core/theme/app_colors.dart';
 import 'package:mooovies/src/views/_widgets/home_search_field.dart';
 import 'package:mooovies/src/views/grid_scrolling.dart';
+import 'package:mooovies/src/views/navigation_bar.dart';
 
 /**
  * Burada bir StatelessWidget olacak.
@@ -28,7 +29,7 @@ class MyWidget extends StatelessWidget {
             title: const Row(
               children: [
                 Icon(
-                  Icons.arrow_back,
+                  Icons.search,
                   color: Colors.white,
                 ),
                 SizedBox(width: 18),
@@ -104,7 +105,6 @@ class MyWidget extends StatelessWidget {
                   color: AppColors.secondaryColor,
                   padding: EdgeInsets.only(left: 10),
                   child: Text(
-                    
                     "NOW PLAYING",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
@@ -117,6 +117,9 @@ class MyWidget extends StatelessWidget {
             ),
 
             Expanded(child: Scrolling()),
+            SizedBox(height: 0),
+
+            Expanded(child: navigationBar()),
 
             //const Image(
             //image: AssetImage('design/harry-potter.webp'),

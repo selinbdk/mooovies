@@ -6,6 +6,7 @@ class AppColors {
   static const Color secondaryColor = const Color.fromARGB(189, 0, 0, 0);
   static const Color backColor = Color.fromARGB(178, 0, 0, 0);
   static const Color buttonColor = Colors.black12;
+  static const Color indicatorColor = Colors.grey;
 }
 
 // class AppColors2 {
