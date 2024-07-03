@@ -3,6 +3,7 @@
 //* fu-stf
 //*
 import 'package:flutter/material.dart';
+import 'package:mooovies/src/core/components/cards/movie_card.dart';
 //import 'package:mooovies/src/core/components/cards/movie_card.dart';
 import 'package:mooovies/src/core/theme/app_colors.dart';
 import 'package:mooovies/src/views/_widgets/home_search_field.dart';
@@ -59,14 +60,7 @@ class HomeView extends StatelessWidget {
             ),
             itemCount: 6,
             itemBuilder: (context, index) {
-              return Container(
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage('design/harry-potter.webp'),
-                    fit: BoxFit.contain,
-                  ),
-                ),
-              );
+              return const MovieCard();
             },
           ),
         ),
@@ -96,14 +90,7 @@ class HomeView extends StatelessWidget {
             ),
             itemCount: 6,
             itemBuilder: (context, index) {
-              return Container(
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage('design/harry-potter.webp'),
-                    fit: BoxFit.contain,
-                  ),
-                ),
-              );
+              return const MovieCard();
             },
           ),
         ),
@@ -113,3 +100,5 @@ class HomeView extends StatelessWidget {
     );
   }
 }
+
+  
