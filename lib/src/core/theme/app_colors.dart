@@ -1,12 +1,17 @@
+// ignore_for_file: unused_element
+
 import 'package:flutter/material.dart';
 
 class AppColors {
   //* kullanım => AppColors.buttonColor;
   //* static const Color primaryColor = Color(0xfffffff);
-  static const Color secondaryColor = const Color.fromARGB(189, 0, 0, 0);
-  static const Color backColor = Color.fromARGB(178, 0, 0, 0);
+  static const Color secondaryColor = Color.fromARGB(189, 0, 0, 0);
+  //static const Color backColor = Color.fromARGB(178, 0, 0, 0);
   static const Color buttonColor = Colors.black12;
-  static const Color indicatorColor = Colors.grey;
+  static const Color scaffoldBackgroundColor = Colors.white54;
+  static const Color text = Colors.black;
+  static const Color text2 = Colors.white;
+  static const Color topbar = Color.fromARGB(255, 54, 116, 142);
 }
 
 // class AppColors2 {
@@ -18,7 +23,7 @@ class AppColors {
 // }
 
 class _SampleColorUsage extends StatelessWidget {
-  const _SampleColorUsage({super.key});
+  const _SampleColorUsage();
 
   @override
   Widget build(BuildContext context) {
@@ -43,8 +48,8 @@ class UserModel {
 }
 
 void main(List<String> args) {
-  final user = const UserModel(
-      userId: 12, username: 'enes', canSwim: false, weight: 21.3);
+  const user =
+      UserModel(userId: 12, username: 'enes', canSwim: false, weight: 21.3);
 
   // late final UserModel username;
 

@@ -31,88 +31,78 @@ class MovieCard extends StatelessWidget {
   Widget build(BuildContext context) {
     //* burası sadece movie görsel ve ismini içerecek
     //* Container kullanılsın
-    return Stack(
-      children: <Widget>[
-        Image.asset('design/harry-potter.webp', fit: BoxFit.contain),
-        // Align(
-        //   alignment: FractionalOffset.bottomCenter,
-        //   child: SizedBox(
-        //     height: 100,
-        //     width: 20,
-        //     child: BackdropFilter(
-        //       filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
-        //       child: Container(
-        //         color: Colors.black.withOpacity(0),
-        //       ),
-        //     ),
-        //   ),
-        // ),
-        Positioned.fill(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Padding(
-                padding: EdgeInsets.fromLTRB(225, 0, 0, 270),
-                child: Icon(
-                  Icons.favorite,
-                  color: Colors.red,
-                  size: 40,
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(16),
+      child: Stack(
+        children: <Widget>[
+          Image.asset(
+            'design/harry-potter.webp',
+            fit: BoxFit.contain,
+          ),
+          Positioned.fill(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                const Padding(
+                  padding: EdgeInsets.all(12),
+                  child: Icon(
+                    Icons.favorite,
+                    color: Colors.red,
+                    size: 40,
+                  ),
                 ),
-              ),
-              ClipRRect(
-                child: BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
-                  child: const SizedBox(
-                    height: 60,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.fromLTRB(20, 0, 0, 20),
-                          child: Text(
-                            "Harry Potter",
-                            style: TextStyle(
-                              color: AppColors.text,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18,
+                ClipRRect(
+                  child: BackdropFilter(
+                    filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
+                    child: const SizedBox(
+                      height: 60,
+                      child: Padding(
+                        padding: EdgeInsets.all(8),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "Harry Potter",
+                              style: TextStyle(
+                                color: AppColors.text2,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                              ),
                             ),
-                          ),
-                        ),
-                        SizedBox(width: 50),
-                        Padding(
-                          padding: EdgeInsets.fromLTRB(30, 0, 0, 20),
-                          child: Text(
-                            "7.3",
-                            style: TextStyle(
-                              color: AppColors.text,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18,
+                            Row(
+                              children: [
+                                Text(
+                                  "7.3",
+                                  style: TextStyle(
+                                    color: AppColors.text2,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18,
+                                  ),
+                                ),
+                                Icon(
+                                  Icons.star,
+                                  color: Colors.amber,
+                                  size: 18,
+                                ),
+                              ],
                             ),
-                          ),
+                          ],
                         ),
-                        Padding(
-                          padding: EdgeInsets.fromLTRB(0, 0, 0, 20),
-                          child: Icon(
-                            Icons.star,
-                            color: Colors.amber,
-                            size: 18,
-                          ),
-                        ),
-                      ],
+                      ),
                     ),
                   ),
                 ),
-              ),
 
-              /**
+                /**
                * 
                * 
                */
-            ],
+              ],
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
