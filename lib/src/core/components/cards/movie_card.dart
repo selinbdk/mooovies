@@ -1,19 +1,20 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
+import 'package:mooovies/src/core/theme/app_colors.dart';
 
 //import 'package:mooovies/src/views/navigation_bar.dart';
 
-/**
- * Burada bir StatelessWidget olacak.
- * Bu Widget içerisine bir MovieModel alacak.
- * Bu Movie modelin içindeki verileri kullanarak filmin posterini, ismini, ve imdb(vote) puanını göstereceği bir widget yapacağız
- * 
- * 
- *          
- * 
- * 
- * 
- *
- */
+/// Burada bir StatelessWidget olacak.
+/// Bu Widget içerisine bir MovieModel alacak.
+/// Bu Movie modelin içindeki verileri kullanarak filmin posterini, ismini, ve imdb(vote) puanını göstereceği bir widget yapacağız
+///
+///
+///
+///
+///
+///
+///
 
 /*
 const Image(
@@ -23,9 +24,6 @@ const Image(
             
 */
 
-
-
-
 class MovieCard extends StatelessWidget {
   const MovieCard({super.key});
 
@@ -33,35 +31,85 @@ class MovieCard extends StatelessWidget {
   Widget build(BuildContext context) {
     //* burası sadece movie görsel ve ismini içerecek
     //* Container kullanılsın
-    return Column(
-      children: [
-        const Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            Icon(
-              Icons.favorite,
-              size: 50,
-            ),
-          ],
-        ),
-        Expanded(
-          child: Container(
-            height: 600,
-            padding: const EdgeInsets.only(bottom: 40),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(400),
-                image: const DecorationImage(
-                  image: AssetImage('design/harry-potter.webp'),
-                  fit: BoxFit.contain,
-                )),
-          ),
-        ),
-        const Text(
-          "Harry Potter",
-          style: TextStyle(
-            fontSize: 22,
-            fontWeight: FontWeight.bold,
-            color: Colors.black,
+    return Stack(
+      children: <Widget>[
+        Image.asset('design/harry-potter.webp', fit: BoxFit.contain),
+        // Align(
+        //   alignment: FractionalOffset.bottomCenter,
+        //   child: SizedBox(
+        //     height: 100,
+        //     width: 20,
+        //     child: BackdropFilter(
+        //       filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
+        //       child: Container(
+        //         color: Colors.black.withOpacity(0),
+        //       ),
+        //     ),
+        //   ),
+        // ),
+        Positioned.fill(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Padding(
+                padding: EdgeInsets.fromLTRB(225, 0, 0, 270),
+                child: Icon(
+                  Icons.favorite,
+                  color: Colors.red,
+                  size: 40,
+                ),
+              ),
+              ClipRRect(
+                child: BackdropFilter(
+                  filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
+                  child: const SizedBox(
+                    height: 60,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(20, 0, 0, 20),
+                          child: Text(
+                            "Harry Potter",
+                            style: TextStyle(
+                              color: AppColors.text,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                            ),
+                          ),
+                        ),
+                        SizedBox(width: 50),
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(30, 0, 0, 20),
+                          child: Text(
+                            "7.3",
+                            style: TextStyle(
+                              color: AppColors.text,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(0, 0, 0, 20),
+                          child: Icon(
+                            Icons.star,
+                            color: Colors.amber,
+                            size: 18,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+
+              /**
+               * 
+               * 
+               */
+            ],
           ),
         ),
       ],
