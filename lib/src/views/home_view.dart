@@ -1,17 +1,57 @@
 //* fu-stl
 
+// ignore_for_file: avoid_print
+
 //* fu-stf
 //*
 import 'package:flutter/material.dart';
 import 'package:mooovies/src/core/components/cards/movie_card.dart';
+import 'package:mooovies/src/core/models/movie_model.dart';
+import 'package:mooovies/src/core/repository/repository.dart';
 import 'package:mooovies/src/core/theme/app_colors.dart';
 import 'package:mooovies/src/views/_widgets/home_search_field.dart';
 
-class HomeView extends StatelessWidget {
+class HomeView extends StatefulWidget {
   const HomeView({super.key});
 
   @override
+  State<HomeView> createState() => _HomeViewState();
+}
+
+class _HomeViewState extends State<HomeView> {
+  final List<MovieModel>? movies = [];
+  final List<MovieModel>? popularMovies = [];
+
+  @override
+  void initState() {
+    print('initState');
+
+    MovieRepository().getNowPlayingMovies().then(
+      (movieListingsModel) {
+        setState(() {
+          movies?.addAll(movieListingsModel.results ?? []);
+          print(movies?.length);
+        });
+      },
+    );
+
+    MovieRepository().getPopularMovies().then(
+      (movieListingsModel) {
+        setState(() {
+          popularMovies?.addAll(movieListingsModel.results ?? []);
+          print(popularMovies?.length);
+        });
+      },
+    );
+
+    super.initState();
+  }
+
+  int movieIndex = 0;
+
+  @override
   Widget build(BuildContext context) {
+    print('builded');
     return Scaffold(
       backgroundColor: AppColors.scaffoldBackgroundColor,
       // appBar: HomeAppBar(hintText:'enes'), |
@@ -41,10 +81,12 @@ class HomeView extends StatelessWidget {
           ),
           Expanded(
             child: ListView.separated(
+              addAutomaticKeepAlives: true,
               scrollDirection: Axis.horizontal,
-              itemCount: 6,
+              itemCount: popularMovies?.length ?? 0,
               padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-              itemBuilder: (context, index) => const MovieCard(),
+              itemBuilder: (context, index) =>
+                  MovieCard(movie: popularMovies?[index]),
               separatorBuilder: (_, __) => const SizedBox(width: 20),
             ),
           ),
@@ -59,11 +101,9 @@ class HomeView extends StatelessWidget {
           Expanded(
             child: ListView.separated(
               scrollDirection: Axis.horizontal,
-              itemCount: 6,
+              itemCount: movies?.length ?? 0,
               padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-              itemBuilder: (context, index) {
-                return const MovieCard();
-              },
+              itemBuilder: (context, index) => MovieCard(movie: movies?[index]),
               separatorBuilder: (_, __) {
                 return const SizedBox(width: 20);
               },
