@@ -38,4 +38,23 @@ class MovieRepository {
 
     return movieListingsModel;
   }
+
+  //* popular movies
+
+  Future<MovieListingsModel> getPopularMovies() async {
+    final response = await http.get(
+      Uri.parse(AppConstants.baseUrl + AppConstants.popularMoviePath),
+      headers: {
+        HttpHeaders.contentTypeHeader: ContentType.json.mimeType,
+        HttpHeaders.authorizationHeader: 'Bearer ${AppConstants.tmdbToken}',
+      },
+    );
+
+    final data = jsonDecode(response.body);
+
+    final movieListingsModel =
+        MovieListingsModel.fromJson(data as Map<String, dynamic>);
+
+    return movieListingsModel;
+  }
 }

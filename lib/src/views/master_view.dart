@@ -25,7 +25,10 @@ class _MasterViewState extends State<MasterView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: views[currentpage],
+      body: IndexedStack(
+        index: currentpage,
+        children: views,
+      ),
       bottomNavigationBar: BottomNavigationBar(
         onTap: (index) {
           setState(() {

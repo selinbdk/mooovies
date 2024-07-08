@@ -12,6 +12,8 @@ class AppColors {
   static const Color text = Colors.black;
   static const Color text2 = Colors.white;
   static const Color topbar = Color.fromARGB(255, 54, 116, 142);
+  static const Color initialButton = Colors.white;
+
 }
 
 // class AppColors2 {
