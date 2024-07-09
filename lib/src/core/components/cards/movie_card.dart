@@ -5,28 +5,11 @@ import 'package:mooovies/src/core/components/button/favorite_button.dart';
 import 'package:mooovies/src/core/components/image/base_network_image.dart';
 import 'package:mooovies/src/core/constants/app_constants.dart';
 import 'package:mooovies/src/core/models/movie_model.dart';
+import 'package:mooovies/src/core/repository/favorite_movie_provider.dart';
 import 'package:mooovies/src/core/theme/app_colors.dart';
+import 'package:provider/provider.dart';
 
 //import 'package:mooovies/src/views/navigation_bar.dart';
-
-/// Burada bir StatelessWidget olacak.
-/// Bu Widget içerisine bir MovieModel alacak.
-/// Bu Movie modelin içindeki verileri kullanarak filmin posterini, ismini, ve imdb(vote) puanını göstereceği bir widget yapacağız
-///
-///
-///
-///
-///
-///
-///
-
-/*
-const Image(
-            image: AssetImage('design/harry-potter.webp'),
-            image: NetworkImage(
-                'https://m.media-amazon.com/images/I/81q77Q39nEL._AC_UF1000,1000_QL80_.jpg'),
-            
-*/
 
 class MovieCard extends StatelessWidget {
   const MovieCard({super.key, required this.movie});
@@ -50,9 +33,18 @@ class MovieCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                const Padding(
-                  padding: EdgeInsets.all(1),
-                  child: FavoriteButton(),
+                Padding(
+                  padding: const EdgeInsets.all(1),
+                  child: Consumer<FavoriteMovieProvider>(
+                    builder: (_, provider, ___) {
+                      return FavoriteButton(
+                        isFav: provider.isFav(movie),
+                        onPressed: () {
+                          provider.toggleFav(movie);
+                        },
+                      );
+                    },
+                  ),
                 ),
                 ClipRRect(
                   child: Container(
