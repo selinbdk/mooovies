@@ -13,9 +13,12 @@ import 'package:mooovies/src/views/_widgets/home_states/home_search_state.dart';
 ///
 ///
 ///
+//_controller.addListener(() => setState(() {
+//    query = _controller.text;
+// }));
 
-class HomeTextField extends StatefulWidget {
-  const HomeTextField({
+class HomeTextField extends StatelessWidget {
+  HomeTextField({
     super.key,
     this.labelText = 'Enter movie name',
     this.decoration,
@@ -23,32 +26,19 @@ class HomeTextField extends StatefulWidget {
 
   final String? labelText;
   final InputDecoration? decoration;
-
-  @override
-  State<HomeTextField> createState() => _HomeTextFieldState();
-}
-
-class _HomeTextFieldState extends State<HomeTextField> {
-  
   final TextEditingController _controller = TextEditingController();
-  String? query = "";
-
-  @override
-  void initState() {
-    _controller.addListener(() => setState(() {
-          query = _controller.text;
-        }));
-
-    super.initState();
-  }
+  String query = "";
 
   @override
   Widget build(BuildContext context) {
     return TextField(
       controller: _controller,
+      onChanged: (value){
+        query=value;
+      },
       decoration: InputDecoration(
         border: const UnderlineInputBorder(),
-        labelText: widget.labelText,
+        labelText: labelText,
         labelStyle: const TextStyle(color: Colors.white),
       ),
     );
