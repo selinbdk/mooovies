@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:mooovies/src/core/constants/app_constants.dart';
 import 'package:mooovies/src/core/models/movie_model.dart';
+import 'package:mooovies/src/core/repository/repository.dart';
 import 'package:mooovies/src/views/_widgets/home_states/home_search_state.dart';
 
 /// *
@@ -20,12 +21,15 @@ class HomeTextField extends StatefulWidget {
     super.key,
     this.labelText = 'Enter movie name',
     this.decoration,
-    required this.movieTitles,
+    required this.movieSearchingList,
+    
   });
 
   final String? labelText;
   final InputDecoration? decoration;
-  final List<MovieModel>? movieTitles;
+  final List<MovieModel>? movieSearchingList;
+
+  
   
 
   @override
@@ -34,14 +38,25 @@ class HomeTextField extends StatefulWidget {
 
 
 class _HomeTextFieldState extends State<HomeTextField> {
+  
   final TextEditingController _controller = TextEditingController();
-
-  void onSubmitted(String query){
-    Navigator.push(context, MaterialPageRoute(builder: (context) => HomeSearchState(query: query, movieTitles: widget.movieTitles),
-    ),
-  );
-
-}
+  String? query = "";
+  
+  void onSubmitted() {
+    setState(() {
+      query= _controller.text;
+      
+    });
+    
+    MovieRepository().searchMovies().then(
+      (movieListingsModel) {
+        setState(() {
+          widget.movieSearchingList?.addAll(movieListingsModel.results ?? []);
+        });
+      },
+    );
+    
+  }
   @override
   Widget build(BuildContext context) {
     return TextField(
@@ -52,7 +67,11 @@ class _HomeTextFieldState extends State<HomeTextField> {
         labelStyle: const TextStyle(color: Colors.white),
       ),
 
-      onSubmitted: (query)=> onSubmitted(_controller.text),
+      onSubmitted: (query)=> onSubmitted(),
     );
   }
+
+
 }
+  
+  
