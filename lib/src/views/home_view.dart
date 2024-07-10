@@ -21,7 +21,8 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
   final List<MovieModel>? movies = [];
   final List<MovieModel>? popularMovies = [];
-  final List<MovieModel>? movieTitles = [];
+  final List<MovieModel>? movieSearchingList = [];
+  final TextEditingController controller= TextEditingController();
 
   @override
   void initState() {
@@ -45,13 +46,7 @@ class _HomeViewState extends State<HomeView> {
       },
     );
 
-    MovieRepository().searchMovies().then(
-      (movieListingsModel) {
-        setState(() {
-          movieTitles?.addAll(movieListingsModel.results ?? []);
-        });
-      },
-    );
+    
 
     super.initState();
   }
@@ -76,7 +71,7 @@ class _HomeViewState extends State<HomeView> {
               color: Colors.white,
             ),
             const SizedBox(width: 18),
-            Expanded(child: HomeTextField(movieTitles: movieTitles,)),
+            Expanded(child: HomeTextField(controller:controller)),
           ],
         ),
       ),
