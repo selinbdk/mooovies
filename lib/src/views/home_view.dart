@@ -5,11 +5,11 @@
 //* fu-stf
 //*
 import 'package:flutter/material.dart';
-import 'package:mooovies/src/core/components/cards/movie_card.dart';
 import 'package:mooovies/src/core/models/movie_model.dart';
 import 'package:mooovies/src/core/repository/repository.dart';
 import 'package:mooovies/src/core/theme/app_colors.dart';
 import 'package:mooovies/src/views/_widgets/home_search_field.dart';
+import 'package:mooovies/src/views/_widgets/home_states/home_empty_state.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -21,6 +21,7 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
   final List<MovieModel>? movies = [];
   final List<MovieModel>? popularMovies = [];
+  final List<MovieModel>? movieTitles = [];
 
   @override
   void initState() {
@@ -44,6 +45,14 @@ class _HomeViewState extends State<HomeView> {
       },
     );
 
+    MovieRepository().searchMovies().then(
+      (movieListingsModel) {
+        setState(() {
+          movieTitles?.addAll(movieListingsModel.results ?? []);
+        });
+      },
+    );
+
     super.initState();
   }
 
@@ -60,57 +69,61 @@ class _HomeViewState extends State<HomeView> {
         elevation: 0,
         surfaceTintColor: Colors.transparent,
         backgroundColor: AppColors.topbar,
-        title: const Row(
+        title:  Row(
           children: [
-            Icon(
+            const Icon(
               Icons.search,
               color: Colors.white,
             ),
-            SizedBox(width: 18),
-            Expanded(child: HomeTextField()),
+            const SizedBox(width: 18),
+            Expanded(child: HomeTextField(movieTitles: movieTitles,)),
           ],
         ),
       ),
 
-      body: Column(
-        children: [
-          //* Popular Movies
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8),
-            child: HomeHeader(title: 'Popular Movies'),
-          ),
-          Expanded(
-            child: ListView.separated(
-              addAutomaticKeepAlives: true,
-              scrollDirection: Axis.horizontal,
-              itemCount: popularMovies?.length ?? 0,
-              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-              itemBuilder: (context, index) =>
-                  MovieCard(movie: popularMovies?[index]),
-              separatorBuilder: (_, __) => const SizedBox(width: 20),
-            ),
-          ),
-
-          const Divider(),
-
-          //* Now Playing Movies
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8),
-            child: HomeHeader(title: 'Now Playing Movies'),
-          ),
-          Expanded(
-            child: ListView.separated(
-              scrollDirection: Axis.horizontal,
-              itemCount: movies?.length ?? 0,
-              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-              itemBuilder: (context, index) => MovieCard(movie: movies?[index]),
-              separatorBuilder: (_, __) {
-                return const SizedBox(width: 20);
-              },
-            ),
-          ),
-        ],
+      body: HomeEmptyState(movies: movies,
+      popularMovies: popularMovies,
       ),
+
+      // Column(
+      //   children: [
+      //     //* Popular Movies
+      //     const Padding(
+      //       padding: EdgeInsets.symmetric(horizontal: 8),
+      //       child: HomeHeader(title: 'Popular Movies'),
+      //     ),
+      //     Expanded(
+      //       child: ListView.separated(
+      //         addAutomaticKeepAlives: true,
+      //         scrollDirection: Axis.horizontal,
+      //         itemCount: popularMovies?.length ?? 0,
+      //         padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+      //         itemBuilder: (context, index) =>
+      //             MovieCard(movie: popularMovies?[index]),
+      //         separatorBuilder: (_, __) => const SizedBox(width: 20),
+      //       ),
+      //     ),
+
+      //     const Divider(),
+
+      //     //* Now Playing Movies
+      //     const Padding(
+      //       padding: EdgeInsets.symmetric(horizontal: 8),
+      //       child: HomeHeader(title: 'Now Playing Movies'),
+      //     ),
+      //     Expanded(
+      //       child: ListView.separated(
+      //         scrollDirection: Axis.horizontal,
+      //         itemCount: movies?.length ?? 0,
+      //         padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+      //         itemBuilder: (context, index) => MovieCard(movie: movies?[index]),
+      //         separatorBuilder: (_, __) {
+      //           return const SizedBox(width: 20);
+      //         },
+      //       ),
+      //     ),
+      //   ],
+      // ),
     );
   }
 }
