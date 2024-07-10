@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:mooovies/src/core/constants/app_constants.dart';
 import 'package:mooovies/src/core/models/movie_model.dart';
@@ -21,42 +19,29 @@ class HomeTextField extends StatefulWidget {
     super.key,
     this.labelText = 'Enter movie name',
     this.decoration,
-    required this.movieSearchingList,
-    
   });
 
   final String? labelText;
   final InputDecoration? decoration;
-  final List<MovieModel>? movieSearchingList;
-
-  
-  
 
   @override
   State<HomeTextField> createState() => _HomeTextFieldState();
 }
 
-
 class _HomeTextFieldState extends State<HomeTextField> {
   
   final TextEditingController _controller = TextEditingController();
   String? query = "";
-  
-  void onSubmitted() {
-    setState(() {
-      query= _controller.text;
-      
-    });
-    
-    MovieRepository().searchMovies().then(
-      (movieListingsModel) {
-        setState(() {
-          widget.movieSearchingList?.addAll(movieListingsModel.results ?? []);
-        });
-      },
-    );
-    
+
+  @override
+  void initState() {
+    _controller.addListener(() => setState(() {
+          query = _controller.text;
+        }));
+
+    super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return TextField(
@@ -66,12 +51,6 @@ class _HomeTextFieldState extends State<HomeTextField> {
         labelText: widget.labelText,
         labelStyle: const TextStyle(color: Colors.white),
       ),
-
-      onSubmitted: (query)=> onSubmitted(),
     );
   }
-
-
 }
-  
-  
