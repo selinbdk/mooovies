@@ -58,9 +58,10 @@ class _HomeViewState extends State<HomeView> {
   void searchChanged(String query) {
     if (debounce?.isActive ?? false) debounce?.cancel();
     debounce = Timer(const Duration(milliseconds: 1000), () {
-      if (query.isNotEmpty) {
+      if (query.trim().isNotEmpty) {
         MovieRepository().searchMovies(query).then((movieListingsModel) {
           setState(() {
+            movieSearchingList?.clear();
             movieSearchingList?.addAll(movieListingsModel.results ?? []);
           });
         });
@@ -90,7 +91,20 @@ class _HomeViewState extends State<HomeView> {
               child: HomeTextField(
                 controller: controller,
                 onChanged: (query) {
+                  if (controller.text.isEmpty) {
+                    setState(() {
+                      HomeEmptyState(
+                        movies: movies,
+                        popularMovies: popularMovies,
+                      );
+                    });
+                  }
                   searchChanged(query);
+                },
+                onPressed: () {
+                  setState(() {
+                    controller.text = "";
+                  });
                 },
               ),
             ),
@@ -106,7 +120,6 @@ class _HomeViewState extends State<HomeView> {
               popularMovies: popularMovies,
             );
           }
-
           return HomeSearchState(
             movieSearchingList: movieSearchingList,
           );

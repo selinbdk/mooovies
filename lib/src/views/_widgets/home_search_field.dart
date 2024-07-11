@@ -1,9 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mooovies/src/core/constants/app_constants.dart';
-import 'package:mooovies/src/core/models/movie_model.dart';
-import 'package:mooovies/src/core/repository/repository.dart';
-import 'package:mooovies/src/views/_widgets/home_states/home_empty_state.dart';
-import 'package:mooovies/src/views/_widgets/home_states/home_search_state.dart';
 
 /// *
 /// Buraya arayacağımız filmin adı yazılacak. ve yazmanın sonucunda aşağıdaki kalan movie cardlar yeni gelen verilre göre değişecek.
@@ -25,12 +20,14 @@ class HomeTextField extends StatelessWidget {
     this.decoration,
     required this.controller,
     this.onChanged,
+    this.onPressed,
   });
 
   final String? labelText;
   final InputDecoration? decoration;
   final TextEditingController controller;
   final void Function(String)? onChanged;
+  final void Function()? onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -42,9 +39,7 @@ class HomeTextField extends StatelessWidget {
           icon: const Icon(
             Icons.clear,
           ),
-          onPressed: () {
-            controller.text = "";
-          },
+          onPressed: onPressed,
         ),
         border: const UnderlineInputBorder(),
         labelText: labelText,
