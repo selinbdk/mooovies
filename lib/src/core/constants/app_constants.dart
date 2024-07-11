@@ -14,6 +14,7 @@ class AppConstants {
 
   static const popularMoviePath =
       "/3/movie/top_rated";
+      //?include_adult=false&language=tr-TR
 
   static const searchPath = "/3/search/movie";
 }

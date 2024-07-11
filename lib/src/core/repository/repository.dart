@@ -25,8 +25,12 @@ class MovieRepository {
   Future<MovieListingsModel> getNowPlayingMovies() async {
     final response = await http.get(
       Uri.https(
-      AppConstants.baseUrl,
-      AppConstants.nowPlayingMoviePath,
+        AppConstants.baseUrl,
+        AppConstants.nowPlayingMoviePath,
+        {
+          "language": "tr-TR",
+          "include_adult": "false",
+        },
       ),
       headers: {
         HttpHeaders.contentTypeHeader: ContentType.json.mimeType,
@@ -47,8 +51,8 @@ class MovieRepository {
   Future<MovieListingsModel> getPopularMovies() async {
     final response = await http.get(
       Uri.https(
-      AppConstants.baseUrl,
-      AppConstants.popularMoviePath,
+        AppConstants.baseUrl,
+        AppConstants.popularMoviePath,
       ),
       headers: {
         HttpHeaders.contentTypeHeader: ContentType.json.mimeType,
