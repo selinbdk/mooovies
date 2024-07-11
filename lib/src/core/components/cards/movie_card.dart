@@ -26,7 +26,7 @@ class MovieCard extends StatelessWidget {
       child: Stack(
         children: <Widget>[
           BaseNetworkImage(
-            url: AppConstants.originalImage(movie?.posterPath) ?? '',
+            url: AppConstants.originalImage(movie?.posterPath),
           ),
           Positioned.fill(
             child: Column(

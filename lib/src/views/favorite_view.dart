@@ -50,6 +50,7 @@ class _FavoriteViewState extends State<FavoriteView> {
           }
 
           return GridView.builder(
+            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
             itemCount: provider.favs.length,
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
