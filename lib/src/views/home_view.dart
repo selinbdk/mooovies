@@ -4,12 +4,15 @@
 
 //* fu-stf
 //*
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:mooovies/src/core/models/movie_model.dart';
 import 'package:mooovies/src/core/repository/repository.dart';
 import 'package:mooovies/src/core/theme/app_colors.dart';
 import 'package:mooovies/src/views/_widgets/home_search_field.dart';
 import 'package:mooovies/src/views/_widgets/home_states/home_empty_state.dart';
+import 'package:mooovies/src/views/_widgets/home_states/home_search_state.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -22,7 +25,8 @@ class _HomeViewState extends State<HomeView> {
   final List<MovieModel>? movies = [];
   final List<MovieModel>? popularMovies = [];
   final List<MovieModel>? movieSearchingList = [];
-  final TextEditingController controller= TextEditingController();
+  final TextEditingController controller = TextEditingController();
+  Timer? debounce;
 
   @override
   void initState() {
@@ -46,12 +50,23 @@ class _HomeViewState extends State<HomeView> {
       },
     );
 
-    
-
     super.initState();
   }
 
   int movieIndex = 0;
+
+  void searchChanged(String query) {
+    if (debounce?.isActive ?? false) debounce?.cancel();
+    debounce = Timer(const Duration(milliseconds: 1000), () {
+      if (query.isNotEmpty) {
+        MovieRepository().searchMovies(query).then((movieListingsModel) {
+          setState(() {
+            movieSearchingList?.addAll(movieListingsModel.results ?? []);
+          });
+        });
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,21 +79,52 @@ class _HomeViewState extends State<HomeView> {
         elevation: 0,
         surfaceTintColor: Colors.transparent,
         backgroundColor: AppColors.topbar,
-        title:  Row(
+        title: Row(
           children: [
             const Icon(
               Icons.search,
               color: Colors.white,
             ),
             const SizedBox(width: 18),
-            Expanded(child: HomeTextField(controller:controller)),
+            Expanded(
+              child: HomeTextField(
+                controller: controller,
+                onChanged: (query) {
+                  searchChanged(query);
+                },
+              ),
+            ),
           ],
         ),
       ),
 
-      body: HomeEmptyState(movies: movies,
-      popularMovies: popularMovies,
+      body: Builder(
+        builder: (context) {
+          if (controller.text.isEmpty) {
+            return HomeEmptyState(
+              movies: movies,
+              popularMovies: popularMovies,
+            );
+          }
+
+          return HomeSearchState(
+            movieSearchingList: movieSearchingList,
+          );
+        },
       ),
+
+      // body: controller.text.isEmpty
+      // ? HomeEmptyState(
+      //     movies: movies,
+      //     popularMovies: popularMovies,
+      //   )
+      // : HomeSearchState(
+      //     movieSearchingList: movieSearchingList,
+      //   ),
+
+      //HomeEmptyState(movies: movies,
+      //popularMovies: popularMovies,
+      //),
 
       // Column(
       //   children: [
