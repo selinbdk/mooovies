@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mooovies/src/core/constants/app_constants.dart';
 import 'package:mooovies/src/core/models/movie_model.dart';
 import 'package:mooovies/src/core/repository/repository.dart';
+import 'package:mooovies/src/views/_widgets/home_states/home_empty_state.dart';
 import 'package:mooovies/src/views/_widgets/home_states/home_search_state.dart';
 
 /// *
@@ -37,6 +38,14 @@ class HomeTextField extends StatelessWidget {
       controller: controller,
       onChanged: onChanged,
       decoration: InputDecoration(
+        suffixIcon: IconButton(
+          icon: const Icon(
+            Icons.clear,
+          ),
+          onPressed: () {
+            controller.text = "";
+          },
+        ),
         border: const UnderlineInputBorder(),
         labelText: labelText,
         labelStyle: const TextStyle(color: Colors.white),
