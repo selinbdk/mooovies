@@ -24,7 +24,10 @@ import 'package:mooovies/src/core/models/movie_listings_model.dart';
 class MovieRepository {
   Future<MovieListingsModel> getNowPlayingMovies() async {
     final response = await http.get(
-      Uri.parse(AppConstants.baseUrl + AppConstants.nowPlayingMoviePath),
+      Uri.https(
+      AppConstants.baseUrl,
+      AppConstants.nowPlayingMoviePath,
+      ),
       headers: {
         HttpHeaders.contentTypeHeader: ContentType.json.mimeType,
         HttpHeaders.authorizationHeader: 'Bearer ${AppConstants.tmdbToken}',
@@ -43,7 +46,34 @@ class MovieRepository {
 
   Future<MovieListingsModel> getPopularMovies() async {
     final response = await http.get(
-      Uri.parse(AppConstants.baseUrl + AppConstants.popularMoviePath),
+      Uri.https(
+      AppConstants.baseUrl,
+      AppConstants.popularMoviePath,
+      ),
+      headers: {
+        HttpHeaders.contentTypeHeader: ContentType.json.mimeType,
+        HttpHeaders.authorizationHeader: 'Bearer ${AppConstants.tmdbToken}',
+      },
+    );
+
+    final data = jsonDecode(response.body);
+
+    final movieListingsModel =
+        MovieListingsModel.fromJson(data as Map<String, dynamic>);
+
+    return movieListingsModel;
+  }
+
+//* Search Movie
+
+  Future<MovieListingsModel> searchMovies(String query) async {
+    final response = await http.get(
+      // Uri.parse(AppConstants.baseUrl+ AppConstants.searchPath+'?query=$query'),
+      Uri.https(
+        AppConstants.baseUrl,
+        AppConstants.searchPath,
+        {"query": query},
+      ),
       headers: {
         HttpHeaders.contentTypeHeader: ContentType.json.mimeType,
         HttpHeaders.authorizationHeader: 'Bearer ${AppConstants.tmdbToken}',
