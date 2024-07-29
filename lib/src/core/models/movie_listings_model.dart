@@ -24,4 +24,18 @@ class MovieListingsModel {
       totalResults: json["total_results"] as int?,
     );
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
 }
